@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head', {title}) %>
+
+    <body>
+    <%- include('partials/nav') %>
+    <section class="container">
+        <h1>Chats</h1>
+
+        <ul class="messages">
+            <% messages.forEach((msg,index)=> { %>
+             <li><span> <%= msg.user %>  said <%= msg.text %> </span> <a href="user/<%= index %>">See More</a></li> 
+            <% }); %>
+
+        </ul>
+
+    </section>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

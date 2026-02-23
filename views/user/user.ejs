@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head.ejs', {title}) %>
+
+    <body>
+    <%- include('../partials/nav') %>
+    <section class="container">
+
+        <div class="details">
+            <div class="profile">
+                <h1> <%= msg.user %> </h1>
+            </div>
+            
+            <p class="message">
+                <%= msg.text %> 
+            </p>
+            <p> <%= date %> </p>
+
+        </div>
+
+    </section>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head', {title}) %>
+
+  <body>
+    <%- include('partials/nav') %>
+    <section class="container">
+      <form class="form" action="/new" method="POST">
+        <span>New message</span>
+        <div class="f-groups">
+          <div class="form-group">
+            <label for="name">Author</label>
+            <input type="text" name="name" id="name" />
+          </div>
+          <div class="form-group">
+            <label for="text">Message</label>
+            <input type="text" id="text" name="text" />
+          </div>
+        </div>
+        <button type="submit" class="form-btn" Submit> Submit message</button>
+      </form>
+    </section>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>
