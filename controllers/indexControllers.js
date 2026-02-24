@@ -11,6 +11,7 @@ const messages = [
   },
 ];
 function indexController(req, res) {
+  
   res.render("index", { messages, title: "Home" });
 }
 
