@@ -1,31 +1,23 @@
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
-];
-function indexController(req, res) {
-  
+const db = require("../db/queries");
+
+async function indexController(req, res) {
+  const messages = await db.getAllMessages();
+  console.log(messages)
   res.render("index", { messages, title: "Home" });
 }
 
 function messageGetController(req, res) {
-  res.render("form", { messages, title: "New Message" });
+  res.render("form", { title: "New Message" });
 }
 
-function messagePostController(req, res) {
-  if(!req.body.name || !req.body.text) return res.redirect("new")
-  
+async function messagePostController(req, res) {
+  if (!req.body.name || !req.body.text) return res.redirect("new");
+
   const user = req.body.name;
-  const text = req.body.text;
+  const message = req.body.text;
   const added = new Date();
-  messages.unshift({ text, user, added });
+  
+  await db.insertMessage({ message, user, added });
   res.redirect("/");
 }
 
@@ -33,14 +25,18 @@ function pageNotFoundController(req, res) {
   return res.status(404).render("404", { title: "page not found" });
 }
 
-function userController(req, res) {
+async function userController(req, res) {
   const { user } = req.params;
-  const msg = messages[user];
-  if (!msg) res.status(404).send("<h1>User does not exist</h1> <a href='/'>Back Home</a>");
-
-  const date = msg.added.toDateString();
-
-  res.render("user/user", { msg, title: msg.user, date });
+  const msg = await db.searchUsername(user);
+  if (!msg)
+   return res
+  .status(404)
+  .send("<h1>User does not exist</h1> <a href='/'>Back Home</a>");
+  
+  const date = msg[0]['created_at'].toDateString();
+  
+  console.log(msg)
+  return res.render("user/user", { msg:msg[0], title: msg[0].username, date});
 }
 
 module.exports = {

@@ -8,8 +8,8 @@
         <h1>Chats</h1>
 
         <ul class="messages">
-            <% messages.forEach((msg,index)=> { %>
-             <li><span> <%= msg.user %>  said <%= msg.text %> </span> <a href="user/<%= index %>">See More</a></li> 
+            <% messages.forEach(msg=> { %>
+             <li><span> <%= msg.username %>  said <%= msg.message %> </span> <a href="user/<%= msg.id %>">See More</a></li> 
             <% }); %>
 
         </ul>
